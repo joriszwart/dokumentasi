@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -10,10 +11,9 @@ namespace dokumentasi
     class Program
     {
         /// <summary>
-        /// The entry point of the application.
+        /// Print a list of identifiers from the generated documentation xml.
         /// </summary>
-        /// <param name="args">command line parameters</param>
-        static void Main(string[] args)
+        private void PrintDocumentation()
         {
             var doc = XDocument.Load("dokumentasi.xml");
             var members = doc.Descendants("member");
@@ -64,6 +64,33 @@ namespace dokumentasi
                 }
                 Console.WriteLine(name);
             }
+        }
+
+        /// <summary>
+        /// Print a list of identifiers through reflection.
+        /// </summary>
+        private void PrintReflection()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            foreach(var identifier in assembly.GetTypes())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("namespace: " + identifier.Namespace + " " + identifier.Name);
+            }
+        }
+
+        /// <summary>
+        /// The entry point of the application.
+        /// </summary>
+        /// <param name="args">command line parameters</param>
+        static void Main(string[] args)
+        {
+            var program = new Program();
+            program.PrintDocumentation();
+            Console.WriteLine("---------------------------------");
+            program.PrintReflection();
+            Console.ResetColor();
         }
     }
 }
