@@ -1,7 +1,9 @@
 ///
 ///
+using System;
 namespace N  // "N:N"
 {
+   public class E : Exception {};
    ///
    ///
    public /* unsafe */ class X    // "T:N.X"
