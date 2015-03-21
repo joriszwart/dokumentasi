@@ -44,7 +44,10 @@ namespace dokumentasi
             writer.WriteLine("    vertical-align: top");
             writer.WriteLine("  }");
             writer.WriteLine("  th {");
-            writer.WriteLine("    background: lightgrey;");
+            writer.WriteLine("    background: lightgrey");
+            writer.WriteLine("  }  ");
+            writer.WriteLine("  dt {");
+            writer.WriteLine("    font-weight: bold");
             writer.WriteLine("  }  ");
             writer.WriteLine("  </style>");
             this.writer = new HtmlTextWriter(writer, "  ");
@@ -81,6 +84,23 @@ namespace dokumentasi
                 writer.WriteEndTag("ul");
             }
 
+            // namespace and assembly
+            writer.WriteFullBeginTag("dl");
+            writer.WriteFullBeginTag("dt");
+            writer.Write("Namespace");
+            writer.WriteEndTag("dt");
+            writer.WriteFullBeginTag("dd");
+            writer.Write(type.Namespace);
+            writer.WriteEndTag("dd");
+            writer.WriteFullBeginTag("dt");
+            writer.Write("Assembly");
+            writer.WriteEndTag("dt");
+            writer.WriteFullBeginTag("dd");
+            writer.Write(type.Assembly.GetName().Name + " (in" + Path.GetFileName(type.Assembly.Location) + ")");
+            writer.WriteEndTag("dd");
+            writer.WriteEndTag("dl");
+
+            // methods
             var methods = type.GetMethods();
             Array.Sort(methods, new MethodInfoComparer());
 
@@ -115,6 +135,7 @@ namespace dokumentasi
             }
             writer.WriteEndTag("table");
 
+            // fields
             var fields = type.GetFields();
             Array.Sort(fields, new FieldInfoComparer());
 
