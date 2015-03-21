@@ -85,7 +85,20 @@ namespace dokumentasi
                 writer.WriteFullBeginTag("li");
                 writer.Write(typename);
             }
-            foreach(var typename in typenames)
+
+            var descendants = from t in type.Assembly.GetTypes() 
+                              where t.BaseType == type
+                              select t;
+            writer.WriteFullBeginTag("ul");
+            foreach (var descendant in descendants)
+            {
+                writer.WriteFullBeginTag("li");
+                writer.Write(descendant.FullName);
+                writer.WriteEndTag("li");
+            }
+            writer.WriteEndTag("ul");
+
+            foreach (var typename in typenames)
             {
                 writer.WriteEndTag("li");
                 writer.WriteEndTag("ul");
