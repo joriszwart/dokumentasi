@@ -21,7 +21,7 @@ namespace dokumentasi
             return String.Format(
                 "{0}{1} {2}",
                 GetModifiers(type),
-                GetType(type),
+                GetTypeName(type),
                 type.Name
             );
         }
@@ -37,14 +37,16 @@ namespace dokumentasi
             return modifiers;
         }
 
-        public static string GetType(this Type type)
+        public static string GetTypeName(this Type type)
         {
             string typename = "";
 
-            if (type.IsArray) typename += "[]";
+            if (type.IsPrimitive) return type.Name.ToLower();
+
             if (type.IsClass) typename += "class";
             if (type.IsEnum) typename += "enum";
             if (type.IsInterface) typename += "interface";
+            if (type.IsArray) typename += " []";
 
             return typename;
         }

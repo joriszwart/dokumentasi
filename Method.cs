@@ -45,7 +45,7 @@ namespace dokumentasi
             string delimiter = "";
             foreach(var parameter in method.GetParameters())
             {
-                parameters += delimiter + parameter.ParameterType.Name + " " + parameter.Name;
+                parameters += delimiter + parameter.ParameterType.GetTypeName() + " " + parameter.Name;
                 delimiter = ", ";
             }
 
@@ -54,7 +54,7 @@ namespace dokumentasi
 
         public static string GetReturnType(this MethodInfo method)
         {
-            return method.ReturnType.ToString();
+            return method.ReturnType.GetTypeName();
         }
     
     }
