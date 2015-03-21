@@ -25,8 +25,28 @@ namespace dokumentasi
             }
 
             Console.WriteLine("---------------------------------");
-            Reflection.PrintReflection();
-            Console.ResetColor();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var reflection = new Reflection(assembly);
+            foreach(var type in reflection.Types)
+            {
+                Console.WriteLine("  type:  " + type.GetSignature());
+
+                var methods = type.GetMethods();
+                Array.Sort(methods, new MethodInfoComparer());
+
+                var fields = type.GetFields();
+                Array.Sort(fields, new FieldInfoComparer());
+
+                foreach (var method in methods)
+                {
+                    Console.WriteLine("    method:  " + method.GetSignature());
+                }
+                foreach (var field in fields)
+                {
+                    Console.WriteLine("    field:  " + field.Name);
+                }
+            }
 
             if(Debugger.IsAttached)
             {

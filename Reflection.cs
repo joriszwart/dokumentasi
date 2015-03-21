@@ -1,37 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace dokumentasi
 {
     class Reflection
     {
-        /// <summary>
-        /// Print a list of identifiers through reflection.
-        /// </summary>
-        public static void PrintReflection()
+        Assembly assembly;
+
+        public Reflection(Assembly assembly)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var types = assembly.GetTypes();
-            Array.Sort(types, new TypeComparer());
+            this.assembly = assembly;
+        }
 
-            foreach (var type in types)
+        public IList<Type> Types
+        {
+            get
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("type: " + type.GetSignature());
+                var types = assembly.GetTypes();
+                Array.Sort(types, new TypeComparer());
 
-                var methods = type.GetMethods();
-                Array.Sort(methods, new MethodInfoComparer());
-                foreach (var method in methods)
-                {
-                    Console.WriteLine("  method: " + method.GetSignature());
-                }
-
-                var fields = type.GetFields();
-                Array.Sort(fields, new FieldInfoComparer());
-                foreach (var field in fields)
-                {
-                    Console.WriteLine("  field: " + field.Name);
-                }
+                return types;
             }
         }
     }
