@@ -32,7 +32,9 @@ namespace dokumentasi
             var reflection = new Reflection(assembly);
             foreach(var type in reflection.Types)
             {
-                using (var stringwriter = new StreamWriter(HttpUtility.UrlEncode(type.Name) + ".html"))
+                string filename = HttpUtility.UrlEncode(type.Name) + ".html";
+                Console.WriteLine("Writing " + filename);
+                using (var stringwriter = new StreamWriter(filename))
                 {
                     var writer = new HtmlWriter(type, documentation, stringwriter);
                     writer.Build();

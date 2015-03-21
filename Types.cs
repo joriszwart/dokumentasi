@@ -8,14 +8,6 @@ namespace dokumentasi
 {
     enum TypeType { Class, Delegate, Enum, Interface, Struct };
 
-    class TypeComparer: Comparer<Type>
-    {
-        public override int Compare(Type a, Type b)
-        {
-            return String.Compare(a.Name, b.Name);
-        }
-    }
-
     static class TypeExtensions
     {
         public static string GetSignature(this Type type)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace dokumentasi
@@ -13,14 +14,14 @@ namespace dokumentasi
             this.assembly = assembly;
         }
 
-        public IList<Type> Types
+        public IEnumerable<Type> Types
         {
             get
             {
                 var types = assembly.GetTypes();
-                Array.Sort(types, new TypeComparer());
-
-                return types;
+                return from type in types
+                       orderby !type.IsInterface, !type.IsAbstract, !type.IsClass, !type.IsEnum, type.Name
+                       select type;
             }
         }
     }
