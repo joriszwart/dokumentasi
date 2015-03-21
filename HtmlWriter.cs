@@ -126,6 +126,41 @@ namespace dokumentasi
             writer.WriteEndTag("dd");
             writer.WriteEndTag("dl");
 
+            // constructors
+            var constructors = type.GetConstructors();
+            Array.Sort(constructors, new ConstructorInfoComparer());
+
+            writer.WriteFullBeginTag("h2");
+            writer.Write("Constructors");
+            writer.WriteEndTag("h2");
+            writer.WriteFullBeginTag("table");
+            writer.WriteFullBeginTag("tr");
+            writer.WriteFullBeginTag("th");
+            writer.Write("Modifiers");
+            writer.WriteEndTag("th");
+            writer.WriteFullBeginTag("th");
+            writer.Write("Name");
+            writer.WriteEndTag("th");
+            writer.WriteFullBeginTag("th");
+            writer.Write("Description");
+            writer.WriteEndTag("th");
+            writer.WriteEndTag("tr");
+            foreach (var constructor in constructors)
+            {
+                writer.WriteFullBeginTag("tr");
+                writer.WriteFullBeginTag("td");
+                writer.Write(constructor.GetModifiers());
+                writer.WriteEndTag("td");
+                writer.WriteFullBeginTag("td");
+                writer.Write(constructor.GetSignature());
+                writer.WriteEndTag("td");
+                writer.WriteFullBeginTag("td");
+                writer.WriteEncodedText("constructor description");
+                writer.WriteEndTag("td");
+                writer.WriteEndTag("tr");
+            }
+            writer.WriteEndTag("table");
+
             // methods
             var methods = type.GetMethods();
             Array.Sort(methods, new MethodInfoComparer());

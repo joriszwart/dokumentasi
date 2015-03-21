@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constructor.cs" />
     <Compile Include="Documentation.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="HtmlWriter.cs" />
