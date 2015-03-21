@@ -83,7 +83,10 @@ namespace dokumentasi
             {
                 writer.WriteFullBeginTag("ul");
                 writer.WriteFullBeginTag("li");
+                writer.AddAttribute("href", typename + ".html", true);
+                writer.RenderBeginTag("a");
                 writer.Write(typename);
+                writer.RenderEndTag();
             }
 
             var descendants = from t in type.Assembly.GetTypes() 
@@ -93,7 +96,10 @@ namespace dokumentasi
             foreach (var descendant in descendants)
             {
                 writer.WriteFullBeginTag("li");
+                writer.AddAttribute("href", descendant.FullName + ".html", true);
+                writer.RenderBeginTag("a");
                 writer.Write(descendant.FullName);
+                writer.RenderEndTag();
                 writer.WriteEndTag("li");
             }
             writer.WriteEndTag("ul");

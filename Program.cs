@@ -32,7 +32,7 @@ namespace dokumentasi
             var reflection = new Reflection(assembly);
             foreach(var type in reflection.Types)
             {
-                string filename = HttpUtility.UrlEncode(type.Name) + ".html";
+                string filename = HttpUtility.UrlEncode(type.FullName) + ".html";
                 Console.WriteLine("Writing " + filename);
                 using (var stringwriter = new StreamWriter(filename))
                 {
