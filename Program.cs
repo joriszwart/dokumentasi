@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Linq;
 
 namespace dokumentasi
@@ -30,21 +32,10 @@ namespace dokumentasi
             var reflection = new Reflection(assembly);
             foreach(var type in reflection.Types)
             {
-                Console.WriteLine("  type:  " + type.GetSignature());
-
-                var methods = type.GetMethods();
-                Array.Sort(methods, new MethodInfoComparer());
-
-                var fields = type.GetFields();
-                Array.Sort(fields, new FieldInfoComparer());
-
-                foreach (var method in methods)
+                using (var stringwriter = new StreamWriter(HttpUtility.UrlEncode(type.Name) + ".html"))
                 {
-                    Console.WriteLine("    method:  " + method.GetSignature());
-                }
-                foreach (var field in fields)
-                {
-                    Console.WriteLine("    field:  " + field.Name);
+                    var writer = new HtmlWriter(type, documentation, stringwriter);
+                    writer.Build();
                 }
             }
 
