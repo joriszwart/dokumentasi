@@ -45,10 +45,17 @@ namespace dokumentasi
             writer.WriteLine("  }");
             writer.WriteLine("  th {");
             writer.WriteLine("    background: lightgrey");
-            writer.WriteLine("  }  ");
+            writer.WriteLine("  }");
             writer.WriteLine("  dt {");
             writer.WriteLine("    font-weight: bold");
-            writer.WriteLine("  }  ");
+            writer.WriteLine("  }");
+            writer.WriteLine("  body > ul {");
+            writer.WriteLine("    padding-left: 0");
+            writer.WriteLine("  }");
+            writer.WriteLine("  ul {");
+            writer.WriteLine("    list-style: none inside;");
+            writer.WriteLine("    padding-left: 1.5em");
+            writer.WriteLine("  }");
             writer.WriteLine("  </style>");
             this.writer = new HtmlTextWriter(writer, "  ");
         }
