@@ -94,7 +94,28 @@ namespace dokumentasi
                 return summary.Value; 
             } 
         }
-        
+
+        public IEnumerable<string> Parameters
+        {
+            get
+            {
+                var parameters = member.Elements("param");
+                foreach(var parameter in parameters)
+                {
+                    yield return parameter.Value; 
+                }
+            }
+        }
+
+        public string Returns
+        {
+            get
+            {
+                var summary = member.Element("summary");
+                return summary.Value;
+            }
+        }
+
         public string Remarks
         {
             get
