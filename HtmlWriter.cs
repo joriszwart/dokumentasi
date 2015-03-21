@@ -26,7 +26,27 @@ namespace dokumentasi
             writer.WriteLine("  <title></title>");
             writer.WriteLine(" </head>");
             writer.WriteLine(" <body>");
-
+            writer.WriteLine("  <style>");
+            writer.WriteLine("  body {");
+            writer.WriteLine("    background: white;");
+            writer.WriteLine("    color: black;");
+            writer.WriteLine("    font: 14px/1.5 sans-serif");
+            writer.WriteLine("  }");
+            writer.WriteLine("  table {");
+            writer.WriteLine("    border-collapse: collapse;");
+            writer.WriteLine("    table-layout: fixed;");
+            writer.WriteLine("    width: 100%");
+            writer.WriteLine("  }");
+            writer.WriteLine("  table, th, td {");
+            writer.WriteLine("    border: 1px solid gray;");
+            writer.WriteLine("    padding: .5em;");
+            writer.WriteLine("    text-align: left;");
+            writer.WriteLine("    vertical-align: top");
+            writer.WriteLine("  }");
+            writer.WriteLine("  th {");
+            writer.WriteLine("    background: lightgrey;");
+            writer.WriteLine("  }  ");
+            writer.WriteLine("  </style>");
             this.writer = new HtmlTextWriter(writer, "  ");
         }
 
