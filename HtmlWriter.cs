@@ -56,6 +56,31 @@ namespace dokumentasi
             writer.WriteEncodedText(type.GetSignature());
             writer.WriteEndTag("h1");
 
+            // inheritance
+            writer.WriteFullBeginTag("h2");
+            writer.Write("Inheritance");
+            writer.WriteEndTag("h2");
+
+            var typenames = new Stack<string>();
+            var thistype = type;
+            do
+            {
+                typenames.Push(thistype.FullName);
+                thistype = thistype.BaseType;
+            } while (thistype != null);
+
+            foreach(var typename in typenames)
+            {
+                writer.WriteFullBeginTag("ul");
+                writer.WriteFullBeginTag("li");
+                writer.Write(typename);
+            }
+            foreach(var typename in typenames)
+            {
+                writer.WriteEndTag("li");
+                writer.WriteEndTag("ul");
+            }
+
             var methods = type.GetMethods();
             Array.Sort(methods, new MethodInfoComparer());
 

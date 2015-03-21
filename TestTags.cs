@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace dokumentasi
 {
+    class BaseTags
+    {
+
+    }
+    
     /// <summary>
     /// <c>TestTags</c> is a class in the <code>dokumentasi</code> namespace.
     /// <code>
@@ -23,7 +28,7 @@ namespace dokumentasi
     /// </example>
     /// Exceptions: <exception cref="N.E">E</exception>
     /// </summary>
-    class TestTags
+    class TestTags: BaseTags
     {
         /// <remarks>Here is an example of a bulleted list:
         /// <list type="bullet">
