@@ -80,12 +80,14 @@ namespace dokumentasi
                 Console.WriteLine("type: " + identifier.Namespace + " " + identifier.Name);
 
                 var methods = identifier.GetMethods();
+                Array.Sort(methods, new MethodInfoComparer());
                 foreach(var method in methods)
                 {
                     Console.WriteLine("  method: " + method.Name);
                 }
 
                 var fields = identifier.GetFields();
+                Array.Sort(fields, new FieldInfoComparer());
                 foreach (var field in fields)
                 {
                     Console.WriteLine("  field: " + field.Name);

@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Field.cs" />
+    <Compile Include="Method.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TestTags.cs" />
