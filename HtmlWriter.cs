@@ -78,10 +78,10 @@ namespace dokumentasi
             {
                 writer.WriteFullBeginTag("tr");
                 writer.WriteFullBeginTag("td");
-                writer.Write(method.IsPublic);
+                writer.Write(method.GetModifiers());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
-                writer.Write(method.Name);
+                writer.Write(method.GetSignature());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
                 writer.WriteEncodedText("method description");

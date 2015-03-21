@@ -17,9 +17,9 @@ namespace dokumentasi
         public static string GetSignature(this MethodInfo method)
         {
             return String.Format(
-                "{0} {1}{2}({3})",
-                GetReturnType(method),
+                "{0}{1} {2}({3})",
                 GetModifiers(method),
+                GetReturnType(method),
                 method.Name,
                 GetParameters(method)
             );
