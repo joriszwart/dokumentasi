@@ -19,8 +19,6 @@ namespace dokumentasi
             writer.WriteLine(" <head>");
             writer.WriteLine(@"  <meta charset=""utf-8"">");
             writer.WriteLine("  <title></title>");
-            writer.WriteLine(" </head>");
-            writer.WriteLine(" <body>");
             writer.WriteLine("  <style>");
             writer.WriteLine("  body {");
             writer.WriteLine("    background: white;");
@@ -52,10 +50,12 @@ namespace dokumentasi
             writer.WriteLine("    padding-left: 1.5em");
             writer.WriteLine("  }");
             writer.WriteLine("  </style>");
+            writer.WriteLine(" </head>");
+            writer.WriteLine(" <body>");
             this.writer = new HtmlTextWriter(writer, "  ");
         }
 
-        public void Build(Type type, DocumentationMember member)
+        public void BuildContents(Type type, DocumentationMember member)
         {
             // header
             writer.WriteFullBeginTag("h1");
@@ -242,6 +242,20 @@ namespace dokumentasi
                 writer.WriteEncodedText(member.Remarks);
                 writer.WriteEndTag("p");
             }
+        }
+
+        public void BuildToC(Reflection reflection, Documentation documentation)
+        {
+            writer.WriteFullBeginTag("ul");
+            foreach (var type in reflection.Types)
+            {
+                writer.WriteFullBeginTag("li");
+                writer.AddAttribute("href", type.FullName + ".html", true);
+                writer.RenderBeginTag("a");
+                writer.Write(type.FullName);
+                writer.RenderEndTag();
+            }
+            writer.WriteEndTag("ul");
         }
 
         public void Dispose()

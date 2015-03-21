@@ -30,15 +30,26 @@ namespace dokumentasi
 
             var assembly = Assembly.GetExecutingAssembly();
             var reflection = new Reflection(assembly);
+
+            // table of contents
+            string filename = assembly.GetName().Name + ".html";
+            Console.WriteLine("Writing " + filename);
+            using (var stringwriter = new StreamWriter(filename))
+            {
+                var writer = new HtmlWriter(stringwriter);
+                writer.BuildToC(reflection, documentation);
+            }
+
+            // contents
             foreach(var type in reflection.Types)
             {
-                string filename = HttpUtility.UrlEncode(type.FullName) + ".html";
-                Console.WriteLine("Writing " + filename);
-                using (var stringwriter = new StreamWriter(filename))
+                string tocfilename = HttpUtility.UrlEncode(type.FullName) + ".html";
+                Console.WriteLine("Writing " + tocfilename);
+                using (var stringwriter = new StreamWriter(tocfilename))
                 {
                     var member = documentation.GetMemberById(type.FullName);
                     var writer = new HtmlWriter(stringwriter);
-                    writer.Build(type, member);
+                    writer.BuildContents(type, member);
                 }
             }
 
