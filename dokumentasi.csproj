@@ -62,6 +62,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TestTags.cs" />
+    <Compile Include="Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

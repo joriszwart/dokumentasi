@@ -73,20 +73,22 @@ namespace dokumentasi
         private void PrintReflection()
         {
             var assembly = Assembly.GetExecutingAssembly();
+            var types = assembly.GetTypes();
+            Array.Sort(types, new TypeComparer());
 
-            foreach(var identifier in assembly.GetTypes())
+            foreach(var type in types)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("type: " + identifier.Namespace + " " + identifier.Name);
+                Console.WriteLine("type: " + type.GetSignature());
 
-                var methods = identifier.GetMethods();
+                var methods = type.GetMethods();
                 Array.Sort(methods, new MethodInfoComparer());
                 foreach(var method in methods)
                 {
                     Console.WriteLine("  method: " + method.GetSignature());
                 }
 
-                var fields = identifier.GetFields();
+                var fields = type.GetFields();
                 Array.Sort(fields, new FieldInfoComparer());
                 foreach (var field in fields)
                 {
