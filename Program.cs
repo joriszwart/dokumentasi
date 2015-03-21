@@ -17,8 +17,13 @@ namespace dokumentasi
         /// <param name="args">command line parameters</param>
         static void Main(string[] args)
         {
-            var program = new Program();
-            Documentation.PrintDocumentation();
+            var documentation = new Documentation("dokumentasi.xml");
+            Console.WriteLine("assembly: " + documentation.Assembly);
+            foreach(var member in documentation.Members)
+            {
+                Console.WriteLine("  member: " + member.Name);
+            }
+
             Console.WriteLine("---------------------------------");
             Reflection.PrintReflection();
             Console.ResetColor();

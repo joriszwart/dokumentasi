@@ -1,64 +1,108 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace dokumentasi
 {
     class Documentation
     {
-        /// <summary>
-        /// Print a list of identifiers from the generated documentation xml.
-        /// </summary>
-        public static void PrintDocumentation()
+        XDocument document;
+
+        public Documentation(string filename)
         {
-            var doc = XDocument.Load("dokumentasi.xml");
-            var members = doc.Descendants("member");
-            foreach (var member in members)
+            this.document = XDocument.Load(filename);
+        }
+
+        public string Assembly
+        {
+            get
             {
-                string name = member.Attribute("name").Value;
-                switch (name[0])
-                {
-                    case 'E':
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("event: ");
-                        break;
-
-                    case 'F':
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("field: ");
-                        break;
-
-                    case 'M':
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("member: ");
-                        break;
-
-                    case 'N':
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("namespace: ");
-                        break;
-
-                    case 'P':
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write("property: ");
-                        break;
-
-                    case 'T':
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write("class/interface/struct/enum/delegate: ");
-                        break;
-
-                    case '!':
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write("resolve error: ");
-                        break;
-
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("unknown: ");
-                        break;
-                }
-                Console.WriteLine(name);
+                var assembly = document.Root.Element("assembly");
+                return assembly.Element("name").Value;
             }
         }
+
+        public IEnumerable<DocumentationMember> Members
+        {
+            get
+            {
+                var members = document.Descendants("member");
+                foreach(var member in members)
+                {
+                    yield return new DocumentationMember(member);
+                }
+            }
+        }
+    }
+
+    enum MemberType { Error, Event, Field, Method, Namespace, Property, Type };
+
+    class DocumentationMember
+    {
+        private XElement member;
+
+        public DocumentationMember(XElement member)
+        {
+            this.member = member;
+            this.Name = member.Attribute("name").Value;
+
+            switch (Name[0])
+            {
+                case 'E':
+                    this.MemberType = MemberType.Event;
+                    break;
+
+                case 'F':
+                    this.MemberType = MemberType.Field;
+                    break;
+
+                case 'M':
+                    this.MemberType = MemberType.Method;
+                    break;
+
+                case 'N':
+                    this.MemberType = MemberType.Namespace;
+                    break;
+
+                case 'P':
+                    this.MemberType = MemberType.Property;
+                    break;
+
+                case 'T':
+                    this.MemberType = MemberType.Type;
+                    break;
+
+                case '!':
+                    this.MemberType = MemberType.Error;
+                    break;
+
+                default:
+                    this.MemberType = MemberType.Error;
+                    break;
+            }
+
+        }
+
+        public MemberType MemberType { get; internal set; }
+        public string Name { get; internal set; }
+ 
+        public string Summary
+        {
+            get
+            {
+                var summary = member.Element("summary");
+                return summary.Value; 
+            } 
+        }
+        
+        public string Remarks
+        {
+            get
+            {
+                var summary = member.Element("remarks");
+                return summary.Value; 
+            }
+        }
+
     }
 }

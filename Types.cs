@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace dokumentasi
 {
+    enum TypeType { Class, Delegate, Enum, Interface, Struct };
+
     class TypeComparer: Comparer<Type>
     {
         public override int Compare(Type a, Type b)
