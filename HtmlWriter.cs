@@ -10,15 +10,10 @@ namespace dokumentasi
 {
     class HtmlWriter
     {
-        Type type;
-        Documentation documentation;
         HtmlTextWriter writer;
 
-        public HtmlWriter(Type type, Documentation documentation, TextWriter writer)
+        public HtmlWriter(TextWriter writer)
         {
-            this.type = type;
-            this.documentation = documentation;
-
             writer.WriteLine("<!DOCTYPE html>");
             writer.WriteLine("<html>");
             writer.WriteLine(" <head>");
@@ -60,12 +55,21 @@ namespace dokumentasi
             this.writer = new HtmlTextWriter(writer, "  ");
         }
 
-        public void Build()
+        public void Build(Type type, DocumentationMember member)
         {
+            // header
             writer.WriteFullBeginTag("h1");
             writer.WriteEncodedText(type.GetSignature());
             writer.WriteEndTag("h1");
 
+            // summary
+            if(member != null && member.Summary != null)
+            {
+                writer.WriteFullBeginTag("p");
+                writer.WriteEncodedText(member.Summary);
+                writer.WriteEndTag("p");
+            }
+            
             // inheritance
             writer.WriteFullBeginTag("h2");
             writer.Write("Inheritance");
@@ -230,6 +234,14 @@ namespace dokumentasi
                 writer.WriteEndTag("tr");
             }
             writer.WriteEndTag("table");
+
+            // remarks
+            if (member != null && member.Remarks != null)
+            {
+                writer.WriteFullBeginTag("p");
+                writer.WriteEncodedText(member.Remarks);
+                writer.WriteEndTag("p");
+            }
         }
 
         public void Dispose()

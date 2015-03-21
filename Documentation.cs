@@ -33,6 +33,18 @@ namespace dokumentasi
                 }
             }
         }
+
+        public DocumentationMember GetMemberById(string id)
+        {
+            foreach(var member in Members)
+            {
+                if(member.Id == id)
+                {
+                    return member;
+                }
+            }
+            return null;
+        }
     }
 
     enum MemberType { Error, Event, Field, Method, Namespace, Property, Type };
@@ -45,6 +57,7 @@ namespace dokumentasi
         {
             this.member = member;
             this.Name = member.Attribute("name").Value;
+            this.Id = this.Name.Substring(2);
 
             switch (Name[0])
             {
@@ -85,13 +98,14 @@ namespace dokumentasi
 
         public MemberType MemberType { get; internal set; }
         public string Name { get; internal set; }
+        public string Id { get; internal set; }
  
         public string Summary
         {
             get
             {
                 var summary = member.Element("summary");
-                return summary.Value; 
+                return summary != null? summary.Value: null; 
             } 
         }
 
@@ -121,7 +135,7 @@ namespace dokumentasi
             get
             {
                 var summary = member.Element("remarks");
-                return summary.Value; 
+                return summary != null? summary.Value: null; 
             }
         }
 

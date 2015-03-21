@@ -36,8 +36,9 @@ namespace dokumentasi
                 Console.WriteLine("Writing " + filename);
                 using (var stringwriter = new StreamWriter(filename))
                 {
-                    var writer = new HtmlWriter(type, documentation, stringwriter);
-                    writer.Build();
+                    var member = documentation.GetMemberById(type.FullName);
+                    var writer = new HtmlWriter(stringwriter);
+                    writer.Build(type, member);
                 }
             }
 

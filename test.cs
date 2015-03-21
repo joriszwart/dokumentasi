@@ -4,12 +4,12 @@ using System;
 namespace SomeNamespace  // "N:SomeNamespace"
 {
    public class E : Exception {};
-   ///
-   ///
+   /// <summary>
+   /// This is some class called SomeClass
+   /// </summary>
    public /* unsafe */ class SomeClass    // "T:SomeNamespaceX"
    {
       /// <summary>
-      /// 
       /// </summary>
       public SomeClass(){}   // "M:SomeNamespace.SomeClass.#ctor"
       // public SomeClass(){} // "M:SomeNamespace.SomeClass.#cctor", a class constructor
