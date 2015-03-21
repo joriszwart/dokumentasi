@@ -83,7 +83,7 @@ namespace dokumentasi
                 Array.Sort(methods, new MethodInfoComparer());
                 foreach(var method in methods)
                 {
-                    Console.WriteLine("  method: " + method.Name);
+                    Console.WriteLine("  method: " + method.GetSignature());
                 }
 
                 var fields = identifier.GetFields();
