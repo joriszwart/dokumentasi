@@ -126,7 +126,7 @@ namespace dokumentasi
             writer.Write("Assembly");
             writer.WriteEndTag("dt");
             writer.WriteFullBeginTag("dd");
-            writer.Write(type.Assembly.GetName().Name + " (in" + Path.GetFileName(type.Assembly.Location) + ")");
+            writer.Write(type.Assembly.GetName().Name + " (in " + Path.GetFileName(type.Assembly.Location) + ")");
             writer.WriteEndTag("dd");
             writer.WriteEndTag("dl");
 
