@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -76,7 +77,19 @@ namespace dokumentasi
             foreach(var identifier in assembly.GetTypes())
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("namespace: " + identifier.Namespace + " " + identifier.Name);
+                Console.WriteLine("type: " + identifier.Namespace + " " + identifier.Name);
+
+                var methods = identifier.GetMethods();
+                foreach(var method in methods)
+                {
+                    Console.WriteLine("  method: " + method.Name);
+                }
+
+                var fields = identifier.GetFields();
+                foreach (var field in fields)
+                {
+                    Console.WriteLine("  field: " + field.Name);
+                }
             }
         }
 
@@ -91,6 +104,12 @@ namespace dokumentasi
             Console.WriteLine("---------------------------------");
             program.PrintReflection();
             Console.ResetColor();
+
+            if(Debugger.IsAttached)
+            {
+                Console.WriteLine("Press any key...");
+                Console.ReadKey();
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace SomeNamespace  // "N:SomeNamespace"
       /// <summary>
       /// 
       /// </summary>
-      public delegate void D(int i); // "T:SomeNamespaceX.D"
+      public delegate void D(int i); // "T:SomeNamespace.SomeClass.D"
       /// <summary>
       /// 
       /// </summary>
