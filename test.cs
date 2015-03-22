@@ -88,5 +88,12 @@ namespace SomeNamespace  // "N:SomeNamespace"
       /// <returns></returns>
       public static explicit operator int(SomeClass x){return 1;} 
       // "M:SomeNamespace.SomeClass.op_Explicit(SomeNamespace.SomeClass)~System.Int32"
+
+   
+      public static void Swap<T>(T a, T b)
+      {
+
+      }
+   
    }
 }

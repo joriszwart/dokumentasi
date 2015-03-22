@@ -33,15 +33,38 @@ namespace dokumentasi
 
         public static string GetTypeName(this Type type)
         {
-            string typename = "";
+            var nullableType = Nullable.GetUnderlyingType(type);
+            if (nullableType != null)
+                return nullableType.Name + "?";
 
-            if (type.IsPrimitive) return type.Name.ToLower();
+            if (!type.IsGenericType)
+            {
+                switch(type.Name)
+                {
+                    case "Boolean": return "bool";
+                    case "Char": return "char";
+                    case "Decimal": return "decimal";
+                    case "Double": return "double";
+                    case "Float": return "float";
+                    case "Int16": return "short";
+                    case "Int32": return "int";
+                    case "Int64": return "long";
+                    case "Object": return "object";
+                    case "String": return "string";
+                    case "Void": return "void";
+                    default:
+                        return string.IsNullOrWhiteSpace(type.FullName) ? type.Name : type.FullName;
+                }
+            }
 
-            if (type.IsClass) typename += "class";
-            if (type.IsEnum) typename += "enum";
-            if (type.IsInterface) typename += "interface";
-            if (type.IsArray) typename += " []";
-
+            string typename = "<";
+            string delimiter = "";
+            foreach(var generictype in type.GetGenericArguments())
+            {
+                typename += delimiter + GetTypeName(generictype);
+                delimiter = ", ";
+            }
+            typename += ">";
             return typename;
         }
     }

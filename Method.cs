@@ -20,7 +20,7 @@ namespace dokumentasi
                 "{0}{1} {2}({3})",
                 GetModifiers(method),
                 GetReturnType(method),
-                method.Name,
+                GetName(method),
                 GetParameters(method)
             );
         }
@@ -38,6 +38,25 @@ namespace dokumentasi
             return modifiers;
         }
 
+        public static string GetName(this MethodInfo method)
+        {
+            string name = method.Name;
+
+            if(method.IsGenericMethod)
+            {
+                name += "<";
+                string delimiter = "";
+                foreach(var argument in method.GetGenericArguments())
+                {
+                    name += delimiter + argument.GetTypeName();
+                    delimiter = ", ";
+                }
+                name += ">";
+            }
+
+            return name;
+        }
+
         public static string GetParameters(this MethodInfo method)
         {
             string parameters = "";
@@ -45,7 +64,10 @@ namespace dokumentasi
             string delimiter = "";
             foreach(var parameter in method.GetParameters())
             {
-                parameters += delimiter + parameter.ParameterType.GetTypeName() + " " + parameter.Name;
+                parameters += delimiter;
+                if (parameter.ParameterType.IsByRef) parameters += "ref ";
+                if (parameter.IsOut) parameters += "out ";
+                parameters += parameter.ParameterType.GetTypeName() + " " + parameter.Name;
                 delimiter = ", ";
             }
 

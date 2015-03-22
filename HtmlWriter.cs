@@ -156,7 +156,7 @@ namespace dokumentasi
                 writer.Write(constructor.GetModifiers());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
-                writer.Write(constructor.GetSignature());
+                writer.WriteEncodedText(constructor.GetSignature());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
                 writer.WriteEncodedText("constructor description");
@@ -191,7 +191,7 @@ namespace dokumentasi
                 writer.Write(method.GetModifiers());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
-                writer.Write(method.GetSignature());
+                writer.WriteEncodedText(method.GetSignature());
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
                 writer.WriteEncodedText("method description");
@@ -226,7 +226,7 @@ namespace dokumentasi
                 writer.Write(field.IsPublic);
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
-                writer.Write(field.Name);
+                writer.WriteEncodedText(field.Name);
                 writer.WriteEndTag("td");
                 writer.WriteFullBeginTag("td");
                 writer.WriteEncodedText("method description");
