@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Constructor.cs" />
     <Compile Include="Documentation.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="HtmlWriter.cs" />
     <Compile Include="Method.cs" />

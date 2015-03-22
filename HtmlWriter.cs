@@ -200,6 +200,35 @@ namespace dokumentasi
             }
             writer.WriteEndTag("table");
 
+            // events
+            var events = type.GetEvents();
+            Array.Sort(events, new EventInfoComparer());
+
+            writer.WriteFullBeginTag("h2");
+            writer.Write("Events");
+            writer.WriteEndTag("h2");
+            writer.WriteFullBeginTag("table");
+            writer.WriteFullBeginTag("tr");
+            writer.WriteFullBeginTag("th");
+            writer.Write("Name");
+            writer.WriteEndTag("th");
+            writer.WriteFullBeginTag("th");
+            writer.Write("Description");
+            writer.WriteEndTag("th");
+            writer.WriteEndTag("tr");
+            foreach (var @event in events)
+            {
+                writer.WriteFullBeginTag("tr");
+                writer.WriteFullBeginTag("td");
+                writer.WriteEncodedText(@event.Name);
+                writer.WriteEndTag("td");
+                writer.WriteFullBeginTag("td");
+                writer.WriteEncodedText("event description");
+                writer.WriteEndTag("td");
+                writer.WriteEndTag("tr");
+            }
+            writer.WriteEndTag("table");
+
             // fields
             var fields = type.GetFields();
             Array.Sort(fields, new FieldInfoComparer());
