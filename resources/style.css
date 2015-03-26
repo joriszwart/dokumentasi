@@ -1,0 +1,29 @@
+body {
+    background: white;
+    color: black;
+    font: 14px/1.5 sans-serif
+}
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%
+}
+table, th, td {
+    border: 1px solid gray;
+    padding: .5em;
+    text-align: left;
+    vertical-align: top
+}
+th {
+    background: lightgrey
+}
+dt {
+    font-weight: bold
+}
+body > ul {
+    padding-left: 0
+}
+ul {
+    list-style: none inside;
+    padding-left: 1.5em
+}
