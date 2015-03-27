@@ -32,12 +32,25 @@ namespace dokumentasi
             var reflection = new Reflection(assembly);
 
             // table of contents
-            string filename = assembly.GetName().Name + ".html";
+            string filename = "toc.html";
             Console.WriteLine("Writing " + filename);
             using (var stringwriter = new StreamWriter(filename))
             {
                 var writer = new HtmlWriter(stringwriter);
                 writer.BuildToC(reflection, documentation);
+            }
+
+            filename = "toc.xml";
+            Console.WriteLine("Writing " + filename);
+            using (var streamwriter = new StreamWriter(filename))
+            {
+                var types = (from type in reflection.Types
+                             orderby type.FullName
+                            select new TypeInfo { FullName = type.FullName }).ToArray<TypeInfo>();
+
+                var xmlwriter = new XmlWriter(streamwriter);
+                xmlwriter.BuildToC(types);
+                streamwriter.Close();
             }
 
             // contents

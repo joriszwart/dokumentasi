@@ -19,9 +19,9 @@ namespace dokumentasi
             get
             {
                 var types = assembly.GetTypes();
-                return from type in types
+                return (from type in types
                        orderby !type.IsInterface, !type.IsAbstract, !type.IsClass, !type.IsEnum, type.Name
-                       select type;
+                       select type).ToArray<Type>();
             }
         }
     }

@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace dokumentasi
 {
     enum TypeType { Class, Delegate, Enum, Interface, Struct };
+
+    public class TypeInfo
+    {
+        public string FullName { get; set; }
+
+        [XmlIgnore]
+        public Assembly Assembly { get; set; }
+    }
 
     static class TypeExtensions
     {

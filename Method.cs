@@ -1,9 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace dokumentasi
 {
+    public class Method
+    {
+        public string Name { get; set; }
+        public string Signature { get; set; }
+    }
+
     class MethodInfoComparer: IComparer<MethodInfo>
     {
         public int Compare(MethodInfo a, MethodInfo b)
