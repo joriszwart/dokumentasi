@@ -4,6 +4,13 @@ using System.Reflection;
 
 namespace dokumentasi
 {
+    public class Constructor
+    {
+        public string FullName { get; set; }
+        public string Signature { get; set; }
+        public string Description { get; set; }
+    }
+
     class ConstructorInfoComparer : IComparer<ConstructorInfo>
     {
         public int Compare(ConstructorInfo a, ConstructorInfo b)

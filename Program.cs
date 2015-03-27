@@ -56,13 +56,28 @@ namespace dokumentasi
             // contents
             foreach(var type in reflection.Types)
             {
+                var member = documentation.GetMemberById(type.FullName);
+                var typeinfo = new TypeInfo
+                { 
+                    FullName = type.FullName,
+                    Id = type.FullName,
+                    Summary = member != null? member.Summary: "no summary"
+                };
+
                 string filename = HttpUtility.UrlEncode(type.FullName) + ".html";
                 Console.WriteLine("Writing " + filename);
                 using (var stringwriter = new StreamWriter(filename))
                 {
-                    var member = documentation.GetMemberById(type.FullName);
                     var writer = new HtmlWriter(stringwriter);
                     writer.BuildContents(type, member);
+                }
+
+                filename = HttpUtility.UrlEncode(type.FullName) + ".xml";
+                Console.WriteLine("Writing " + filename);
+                using (var streamwriter = new StreamWriter(filename))
+                {
+                    var xmlwriter = new XmlWriter(streamwriter);
+                    xmlwriter.BuildContents(typeinfo, member);
                 }
             }
 

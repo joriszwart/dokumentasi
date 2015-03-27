@@ -19,5 +19,11 @@ namespace dokumentasi
             var serializer = new XmlSerializer(types.GetType());
             serializer.Serialize(writer, types);
         }
+
+        public void BuildContents(TypeInfo type, DocumentationMember member)
+        {
+            var serializer = new XmlSerializer(type.GetType());
+            serializer.Serialize(writer, type);
+        }
     }
 }

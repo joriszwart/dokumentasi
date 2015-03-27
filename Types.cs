@@ -13,6 +13,16 @@ namespace dokumentasi
     public class TypeInfo
     {
         public string FullName { get; set; }
+        public string Signature { get; set; }
+        public string Summary { get; set; }
+        // TODO inheritance
+        public string AssemblyName { get; set; }
+        public string Namespace { get; set; }
+        public Constructor[] Constructors { get; set; }
+        public Method[] Methods { get; set; }
+        public Event[] Events { get; set; }
+        public Field[] Fields { get; set; }
+        public string Remarks { get; set; }
 
         [XmlAttribute]
         public string Id { get; set; }
