@@ -31,6 +31,14 @@ namespace dokumentasi
 
         public void BuildContents(Type type, DocumentationMember member)
         {
+            var transform = new XslCompiledTransform();
+            using (var reader = XmlReader.Create(new StringReader(Properties.Resources.topic)))
+            {
+                transform.Load(reader);
+                transform.Transform("SomeNamespace.SomeClass.xml", "topic-xml.html");
+            }
+            return;
+
             // header
             writer.WriteFullBeginTag("h1");
             writer.WriteEncodedText(type.GetSignature());

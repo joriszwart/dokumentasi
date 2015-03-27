@@ -99,28 +99,50 @@ namespace dokumentasi.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;/&quot;&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
         ///
-        ///  &lt;xsl:output method=&quot;html&quot; omit-xml-declaration=&quot;yes&quot; indent=&quot;no&quot; encoding=&quot;utf-8&quot;/&gt;
+        ///  &lt;xsl:output method=&quot;html&quot; omit-xml-declaration=&quot;yes&quot; indent=&quot;yes&quot; encoding=&quot;utf-8&quot;/&gt;
+        ///  &lt;xsl:strip-space elements=&quot;*&quot;/&gt;
         ///
         ///  &lt;xsl:param name=&quot;current&quot;/&gt;
         ///
-        ///  &lt;xsl:template match=&quot;//HelpTOC&quot;&gt;
-        ///    &lt;div class=&quot;leftNav&quot; id=&quot;leftNav&quot;&gt;
-        ///      &lt;div class=&quot;toc&quot; id=&quot;tocNav&quot;&gt;
-        ///        &lt;ul&gt;
-        ///          &lt;xsl:apply-templates/&gt;
-        ///        &lt;/ul&gt;
-        ///      &lt;/div&gt;
-        ///    &lt;/div&gt;
-        ///  &lt;/xsl:template&gt;
-        ///
-        ///  &lt;xsl:template match=&quot;HelpTOCNode&quot;&gt;
-        ///    [rest of string was truncated]&quot;;.
+        ///  &lt;xsl:template match=&quot;/&quot;&gt;
+        ///    &lt;xsl:text disable-output-escaping=&quot;yes&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+        ///&lt;/xsl:text&gt;
+        ///    &lt;html&gt;
+        ///      &lt;head&gt;
+        ///        &lt;meta charset=&quot;utf-8&quot;/&gt;
+        ///        &lt;title&gt;Table of Contents&lt;/title&gt;
+        ///      &lt;/head&gt;
+        ///       [rest of string was truncated]&quot;;.
         /// </summary>
         public static string toc {
             get {
                 return ResourceManager.GetString("toc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+        ///
+        ///  &lt;xsl:output method=&quot;html&quot; omit-xml-declaration=&quot;yes&quot; indent=&quot;yes&quot; encoding=&quot;utf-8&quot;/&gt;
+        ///  &lt;xsl:strip-space elements=&quot;*&quot;/&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;/&quot;&gt;
+        ///    &lt;xsl:text disable-output-escaping=&quot;yes&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+        ///&lt;/xsl:text&gt;
+        ///    &lt;html&gt;
+        ///      &lt;head&gt;
+        ///        &lt;meta charset=&quot;utf-8&quot;/&gt;
+        ///        &lt;title&gt;&lt;xsl:value-of select=&quot;@Id&quot;/&gt;&lt;/title&gt;
+        ///      &lt;/head&gt;
+        ///      &lt;body&gt;
+        ///        &lt;artic [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string topic {
+            get {
+                return ResourceManager.GetString("topic", resourceCulture);
             }
         }
     }
