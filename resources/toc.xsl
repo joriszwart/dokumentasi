@@ -6,12 +6,26 @@
 
   <xsl:param name="current"/>
 
-  <xsl:template match="ArrayOfTypeInfo">
-    <nav class="toc">
-      <ul>
+  <xsl:template match="/">
+    <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;
+</xsl:text>
+    <html>
+      <head>
+        <meta charset="utf-8"/>
+        <title>Table of Contents</title>
+      </head>
+      <body>
+        <nav class="toc">
         <xsl:apply-templates/>
-      </ul>
-    </nav>
+        </nav>
+      </body>
+    </html>
+  </xsl:template>
+
+  <xsl:template match="ArrayOfTypeInfo">
+    <ul>
+      <xsl:apply-templates/>
+    </ul>
   </xsl:template>
 
   <xsl:template match="TypeInfo">
