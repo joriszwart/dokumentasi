@@ -61,8 +61,7 @@ namespace dokumentasi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to @import url(&apos;style.css&apos;);
-        ///body {
+        ///   Looks up a localized string similar to body {
         ///    background: white;
         ///    color: black;
         ///    font: 14px/1.5 sans-serif
@@ -95,6 +94,33 @@ namespace dokumentasi.Properties {
         public static string style {
             get {
                 return ResourceManager.GetString("style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;/&quot;&gt;
+        ///
+        ///  &lt;xsl:output method=&quot;html&quot; omit-xml-declaration=&quot;yes&quot; indent=&quot;no&quot; encoding=&quot;utf-8&quot;/&gt;
+        ///
+        ///  &lt;xsl:param name=&quot;current&quot;/&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;//HelpTOC&quot;&gt;
+        ///    &lt;div class=&quot;leftNav&quot; id=&quot;leftNav&quot;&gt;
+        ///      &lt;div class=&quot;toc&quot; id=&quot;tocNav&quot;&gt;
+        ///        &lt;ul&gt;
+        ///          &lt;xsl:apply-templates/&gt;
+        ///        &lt;/ul&gt;
+        ///      &lt;/div&gt;
+        ///    &lt;/div&gt;
+        ///  &lt;/xsl:template&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;HelpTOCNode&quot;&gt;
+        ///    [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string toc {
+            get {
+                return ResourceManager.GetString("toc", resourceCulture);
             }
         }
     }

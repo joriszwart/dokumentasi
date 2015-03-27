@@ -14,6 +14,9 @@ namespace dokumentasi
     {
         public string FullName { get; set; }
 
+        [XmlAttribute]
+        public string Id { get; set; }
+
         [XmlIgnore]
         public Assembly Assembly { get; set; }
     }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
+using System.Xml;
+using System.Xml.Xsl;
 
 namespace dokumentasi
 {
@@ -247,16 +249,12 @@ namespace dokumentasi
 
         public void BuildToC(Reflection reflection, Documentation documentation)
         {
-            writer.WriteFullBeginTag("ul");
-            foreach (var type in reflection.Types)
+            var transform = new XslCompiledTransform();
+            using (var reader = XmlReader.Create(new StringReader(Properties.Resources.toc)))
             {
-                writer.WriteFullBeginTag("li");
-                writer.AddAttribute("href", type.FullName + ".html", true);
-                writer.RenderBeginTag("a");
-                writer.Write(type.FullName);
-                writer.RenderEndTag();
+                transform.Load(reader);
+                transform.Transform("toc.xml", "toc-xml.html");
             }
-            writer.WriteEndTag("ul");
         }
 
         public void Dispose()

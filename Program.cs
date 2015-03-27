@@ -32,33 +32,33 @@ namespace dokumentasi
             var reflection = new Reflection(assembly);
 
             // table of contents
-            string filename = "toc.html";
-            Console.WriteLine("Writing " + filename);
-            using (var stringwriter = new StreamWriter(filename))
-            {
-                var writer = new HtmlWriter(stringwriter);
-                writer.BuildToC(reflection, documentation);
-            }
-
-            filename = "toc.xml";
-            Console.WriteLine("Writing " + filename);
-            using (var streamwriter = new StreamWriter(filename))
+            string tocfilename = "toc.xml";
+            Console.WriteLine("Writing " + tocfilename);
+            using (var streamwriter = new StreamWriter(tocfilename))
             {
                 var types = (from type in reflection.Types
                              orderby type.FullName
-                            select new TypeInfo { FullName = type.FullName }).ToArray<TypeInfo>();
+                            select new TypeInfo { FullName = type.FullName, Id = type.FullName }).ToArray<TypeInfo>();
 
                 var xmlwriter = new XmlWriter(streamwriter);
                 xmlwriter.BuildToC(types);
                 streamwriter.Close();
             }
 
+            tocfilename = "toc.html";
+            Console.WriteLine("Writing " + tocfilename);
+            using (var stringwriter = new StreamWriter(tocfilename))
+            {
+                var writer = new HtmlWriter(stringwriter);
+                writer.BuildToC(reflection, documentation);
+            }
+
             // contents
             foreach(var type in reflection.Types)
             {
-                string tocfilename = HttpUtility.UrlEncode(type.FullName) + ".html";
-                Console.WriteLine("Writing " + tocfilename);
-                using (var stringwriter = new StreamWriter(tocfilename))
+                string filename = HttpUtility.UrlEncode(type.FullName) + ".html";
+                Console.WriteLine("Writing " + filename);
+                using (var stringwriter = new StreamWriter(filename))
                 {
                     var member = documentation.GetMemberById(type.FullName);
                     var writer = new HtmlWriter(stringwriter);
