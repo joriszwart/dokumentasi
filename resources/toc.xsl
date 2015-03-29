@@ -34,7 +34,7 @@
         <xsl:if test="TypeInfo">has-childs </xsl:if>
         <xsl:if test="'' = $current">current </xsl:if>
       </xsl:attribute>
-      <a href="{@Id}">
+      <a href="{@Id}.html">
         <xsl:value-of select="FullName"/>
       </a>
 
