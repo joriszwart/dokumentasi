@@ -15,7 +15,13 @@ namespace dokumentasi
         /// <param name="args">command line parameters</param>
         static void Main(string[] args)
         {
-            var documentation = new Documentation("dokumentasi.xml");
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Usage: dokumentasi <assembly name>");
+                return;
+            }
+
+            var documentation = new Documentation(args[0] + ".xml");
             Console.WriteLine("assembly: " + documentation.Assembly);
             foreach(var member in documentation.Members)
             {
@@ -24,7 +30,7 @@ namespace dokumentasi
 
             Console.WriteLine("---------------------------------");
 
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.Load(args[0]);
             var reflection = new Reflection(assembly);
 
             // style
