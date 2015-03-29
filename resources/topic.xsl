@@ -71,7 +71,7 @@
         Namespace
       </dt>
       <dd>
-        <xsl:value-of select="../@Namespace"/>
+        <a href="{../@Namespace}"><xsl:value-of select="../@Namespace"/></a>
       </dd>
       <dt>
         Assembly
@@ -107,6 +107,34 @@
               </td>
               <td>
                 <xsl:value-of select="Description"/>
+              </td>
+            </tr>
+          </xsl:for-each>
+        </tbody>
+      </table>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="Exceptions">
+    <xsl:if test="*">
+      <h2>Exceptions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Exception</th>
+            <th>Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <xsl:for-each select="*">
+            <tr>
+              <td>
+                <a href="{FullName}.html">
+                  <xsl:value-of select="Name"/>
+                </a>
+              </td>
+              <td>
+                <xsl:value-of select="Condition"/>
               </td>
             </tr>
           </xsl:for-each>

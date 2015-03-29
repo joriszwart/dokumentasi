@@ -19,6 +19,9 @@ namespace dokumentasi
         [XmlAttribute]
         public string Namespace { get; set; }
 
+        public string Syntax { get; set; }
+        public Class[] Exceptions { get; set; }
+
         public Constructor[] Constructors { get; set; }
         public Method[] Methods { get; set; }
         public Event[] Events { get; set; }
