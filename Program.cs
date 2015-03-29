@@ -27,6 +27,9 @@ namespace dokumentasi
             var assembly = Assembly.GetExecutingAssembly();
             var reflection = new Reflection(assembly);
 
+            // style
+            File.WriteAllText("dokumentasi.css", Properties.Resources.style);
+
             // table of contents
             string tocfilename = "toc.xml";
             Console.WriteLine("Writing " + tocfilename);

@@ -11,6 +11,7 @@
       <head>
         <meta charset="utf-8"/>
         <title><xsl:value-of select="@Id"/></title>
+        <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
       <body>
         <article>
