@@ -83,7 +83,7 @@ namespace dokumentasi
                     Inheritance = inheritance,
                     Namespace = type.Namespace,
                     AssemblyName = type.Assembly.GetName().Name,
-                    AssemblyFileName = type.Assembly.Location,
+                    AssemblyFileName = Path.GetFileName(type.Assembly.Location),
                     Constructors = (from constructor in constructors select new Constructor { Signature = constructor.GetSignature(), FullName = constructor.Name }).ToArray(),
                     Methods = (from method in methods select new Method { Signature = method.GetSignature(), Name = method.Name }).ToArray(),
                     Events = (from @event in events select new Event() ).ToArray(),

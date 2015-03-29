@@ -10,7 +10,7 @@
     <html>
       <head>
         <meta charset="utf-8"/>
-        <title><xsl:value-of select="@Id"/></title>
+        <title><xsl:value-of select="TypeInfo/@Id"/></title>
         <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
       <body>
@@ -71,41 +71,48 @@
         Namespace
       </dt>
       <dd>
-        <xsl:value-of select="@Namespace"/>
+        <xsl:value-of select="../@Namespace"/>
       </dd>
       <dt>
         Assembly
       </dt>
       <dd>
-        <xsl:value-of select="@AssemblyName"/>
-        (in <xsl:value-of select="@AssemblyFileName"/>)
+        <xsl:value-of select="../@AssemblyName"/>
+        (in <xsl:value-of select="../@AssemblyFileName"/>)
       </dd>
     </dl>
   </xsl:template>
 
   <xsl:template match="Constructors|Properties|Methods|ExtensionMethods|Events|Fields">
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <xsl:for-each select="Member">
+    <xsl:if test="*">
+      <h2>
+        <xsl:value-of select="name(.)"/>
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr>
-            <xsl:value-of select="Properties"/>
-          </tr>
-          <tr>
-            <xsl:value-of select="Name"/>
-          </tr>
-          <tr>
-            <xsl:value-of select="Description"/>
-          </tr>
+          <xsl:for-each select="*">
+            <tr>
+              <td>
+                <xsl:value-of select="Properties"/>
+              </td>
+              <td>
+                <xsl:value-of select="Name"/>
+              </td>
+              <td>
+                <xsl:value-of select="Description"/>
+              </td>
+            </tr>
+          </xsl:for-each>
         </tbody>
-      </xsl:for-each>
-    </table>
+      </table>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="Remarks">
