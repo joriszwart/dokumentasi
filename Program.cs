@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace dokumentasi
             Console.WriteLine("Writing " + tocfilename);
             using (var stringwriter = new StreamWriter(tocfilename))
             {
-                var writer = new HtmlWriter(stringwriter);
+                var writer = new HtmlWriter();
                 writer.BuildToC(reflection, documentation);
             }
 
@@ -57,22 +58,43 @@ namespace dokumentasi
             foreach(var type in reflection.Types)
             {
                 var member = documentation.GetMemberById(type.FullName);
+
+                var inheritance = type.GetClassHierarchy();
+
+                var constructors = type.GetConstructors();
+                Array.Sort(constructors, new ConstructorInfoComparer());
+                var methods = type.GetMethods();
+                Array.Sort(methods, new MethodInfoComparer());
+                var events = type.GetEvents();
+                Array.Sort(events, new EventInfoComparer());
+                var fields = type.GetFields();
+                Array.Sort(fields, new FieldInfoComparer());
+
                 var typeinfo = new TypeInfo
-                { 
+                {
                     FullName = type.FullName,
                     Id = type.FullName,
-                    Summary = member != null? member.Summary: "no summary"
+                    Summary = member != null ? member.Summary : "no summary",
+                    Inheritance = inheritance,
+                    Namespace = type.Namespace,
+                    AssemblyName = type.Assembly.GetName().Name,
+                    AssemblyFileName = type.Assembly.Location,
+                    Constructors = (from constructor in constructors select new Constructor { Signature = constructor.GetSignature(), FullName = constructor.Name }).ToArray(),
+                    Methods = (from method in methods select new Method { Signature = method.GetSignature(), Name = method.Name }).ToArray(),
+                    Events = (from @event in events select new Event() ).ToArray(),
+                    Fields = (from field in fields select new Field() ).ToArray(),
+                    Remarks = member != null ? member.Remarks : "no remarks"
                 };
 
-                string filename = HttpUtility.UrlEncode(type.FullName) + ".html";
+                string filename = WebUtility.UrlEncode(type.FullName) + ".html";
                 Console.WriteLine("Writing " + filename);
                 using (var stringwriter = new StreamWriter(filename))
                 {
-                    var writer = new HtmlWriter(stringwriter);
+                    var writer = new HtmlWriter();
                     writer.BuildContents(type, member);
                 }
 
-                filename = HttpUtility.UrlEncode(type.FullName) + ".xml";
+                filename = WebUtility.UrlEncode(type.FullName) + ".xml";
                 Console.WriteLine("Writing " + filename);
                 using (var streamwriter = new StreamWriter(filename))
                 {

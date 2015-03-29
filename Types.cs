@@ -15,9 +15,15 @@ namespace dokumentasi
         public string FullName { get; set; }
         public string Signature { get; set; }
         public string Summary { get; set; }
-        // TODO inheritance
+
+        public Class[] Inheritance { get; set; }
+        [XmlAttribute]
         public string AssemblyName { get; set; }
+        [XmlAttribute]
+        public string AssemblyFileName { get; set; }
+        [XmlAttribute]
         public string Namespace { get; set; }
+
         public Constructor[] Constructors { get; set; }
         public Method[] Methods { get; set; }
         public Event[] Events { get; set; }
@@ -26,9 +32,6 @@ namespace dokumentasi
 
         [XmlAttribute]
         public string Id { get; set; }
-
-        [XmlIgnore]
-        public Assembly Assembly { get; set; }
     }
 
     static class TypeExtensions
