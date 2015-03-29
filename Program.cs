@@ -41,17 +41,18 @@ namespace dokumentasi
                 streamwriter.Close();
             }
 
-            tocfilename = "toc.html";
-            Console.WriteLine("Writing " + tocfilename);
-            using (var stringwriter = new StreamWriter(tocfilename))
-            {
-                var writer = new HtmlWriter();
-                writer.BuildToC(reflection, documentation);
-            }
+            Console.WriteLine("Writing toc.xml");
+            var tocwriter = new HtmlWriter();
+            tocwriter.BuildToC(reflection, documentation);
 
             // contents
             foreach(var type in reflection.Types)
             {
+                if (type.FullName.StartsWith("<PrivateImplementationDetails>"))
+                {
+                    continue;
+                }
+
                 var member = documentation.GetMemberById(type.FullName);
 
                 var inheritance = type.GetClassHierarchy();
@@ -81,21 +82,18 @@ namespace dokumentasi
                     Remarks = member != null ? member.Remarks : "no remarks"
                 };
 
-                string filename = WebUtility.UrlEncode(type.FullName) + ".html";
-                Console.WriteLine("Writing " + filename);
-                using (var stringwriter = new StreamWriter(filename))
-                {
-                    var writer = new HtmlWriter();
-                    writer.BuildContents(type, member);
-                }
-
-                filename = WebUtility.UrlEncode(type.FullName) + ".xml";
+                string filename = WebUtility.UrlEncode(type.FullName) + ".xml";
                 Console.WriteLine("Writing " + filename);
                 using (var streamwriter = new StreamWriter(filename))
                 {
                     var xmlwriter = new XmlWriter(streamwriter);
                     xmlwriter.BuildContents(typeinfo, member);
                 }
+
+                filename = WebUtility.UrlEncode(type.FullName) + ".html";
+                Console.WriteLine("Writing " + filename);
+                var topicwriter = new HtmlWriter();
+                topicwriter.BuildContents(type, member);
             }
 
             if(Debugger.IsAttached)
