@@ -7,6 +7,7 @@ namespace dokumentasi
     public class Method
     {
         public string Name { get; set; }
+        public string FullName { get; set; }
         public string Signature { get; set; }
     }
 
