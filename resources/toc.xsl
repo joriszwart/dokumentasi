@@ -13,6 +13,7 @@
       <head>
         <meta charset="utf-8"/>
         <title>Table of Contents</title>
+        <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
       <body>
         <nav class="toc">
