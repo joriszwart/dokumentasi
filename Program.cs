@@ -93,7 +93,7 @@ namespace dokumentasi
                     AssemblyName = type.Assembly.GetName().Name,
                     AssemblyFileName = Path.GetFileName(type.Assembly.Location),
                     Constructors = (from constructor in constructors select new Constructor { Signature = constructor.GetSignature(), FullName = constructor.Name }).ToArray(),
-                    Methods = (from method in methods select new Method { Signature = method.GetSignature(), Name = method.Name, FullName = type.FullName + "." + method.Name }).ToArray(),
+                    Methods = (from method in methods select new Method { Signature = method.GetSignature(), Name = method.Name, FullName = type.FullName + "." + method.Name, Description = documentation.GetMemberById(type.FullName + ". " + method.Name) != null? documentation.GetMemberById(type.FullName + ". " + method.Name).Summary: "-" }).ToArray(),
                     Events = (from @event in events select new Event() ).ToArray(),
                     Fields = (from field in fields select new Field() ).ToArray(),
                     Remarks = member != null ? member.Remarks : "no remarks"

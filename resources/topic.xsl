@@ -144,6 +144,7 @@
   </xsl:template>
 
   <xsl:template match="Remarks">
+    <h2>Remarks</h2>
     <p>
       <xsl:value-of select="."/>
     </p>
