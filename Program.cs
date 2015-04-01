@@ -76,6 +76,8 @@ namespace dokumentasi
 
                 var constructors = type.GetConstructors();
                 Array.Sort(constructors, new ConstructorInfoComparer());
+                var properties = type.GetProperties();
+                Array.Sort(properties, new PropertyInfoComparer());
                 var methods = type.GetMethods();
                 Array.Sort(methods, new MethodInfoComparer());
                 var events = type.GetEvents();
@@ -93,6 +95,7 @@ namespace dokumentasi
                     AssemblyName = type.Assembly.GetName().Name,
                     AssemblyFileName = Path.GetFileName(type.Assembly.Location),
                     Constructors = (from constructor in constructors select new Constructor { Signature = constructor.GetSignature(), FullName = constructor.Name }).ToArray(),
+                    Properties = (from property in properties select new Property { Signature = property.GetSignature(), Name = property.Name, FullName = type.FullName + "." + property.Name, Description = documentation.GetMemberById(type.FullName + ". " + property.Name) != null? documentation.GetMemberById(type.FullName + ". " + property.Name).Summary: "-" }).ToArray(),
                     Methods = (from method in methods select new Method { Signature = method.GetSignature(), Name = method.Name, FullName = type.FullName + "." + method.Name, Description = documentation.GetMemberById(type.FullName + ". " + method.Name) != null? documentation.GetMemberById(type.FullName + ". " + method.Name).Summary: "-" }).ToArray(),
                     Events = (from @event in events select new Event() ).ToArray(),
                     Fields = (from field in fields select new Field() ).ToArray(),

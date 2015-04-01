@@ -66,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Property.cs" />
     <Compile Include="Reflection.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TestTags.cs" />

@@ -23,6 +23,7 @@ namespace dokumentasi
         public Class[] Exceptions { get; set; }
 
         public Constructor[] Constructors { get; set; }
+        public Property[] Properties { get; set; }
         public Method[] Methods { get; set; }
         public Event[] Events { get; set; }
         public Field[] Fields { get; set; }
