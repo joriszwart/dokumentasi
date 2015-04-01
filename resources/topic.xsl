@@ -102,7 +102,7 @@
                 <xsl:value-of select="Properties"/>
               </td>
               <td>
-                <a href="{FullName}.html"><xsl:value-of select="Name"/></a>                  
+                <a href="#{Name}"><xsl:value-of select="Name"/></a>                  
               </td>
               <td>
                 <xsl:value-of select="Description"/>
@@ -128,7 +128,7 @@
           <xsl:for-each select="*">
             <tr>
               <td>
-                <a href="{FullName}.html">
+                <a href="#{Name}">
                   <xsl:value-of select="Name"/>
                 </a>
               </td>
