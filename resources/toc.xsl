@@ -15,7 +15,7 @@
         <title>Table of Contents</title>
         <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
-      <body>
+      <body class="dokumentasi">
         <nav class="toc">
         <xsl:apply-templates/>
         </nav>

@@ -13,7 +13,7 @@
         <title><xsl:value-of select="TypeInfo/@Id"/></title>
         <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
-      <body>
+      <body class="dokumentasi">
         <article>
         <xsl:apply-templates/>
         </article>

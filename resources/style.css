@@ -1,29 +1,37 @@
-body {
+.dokumentasi {
     background: white;
     color: black;
     font: 14px/1.5 sans-serif
 }
-table {
+
+.dokumentasi table {
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%
 }
-table, th, td {
+
+.dokumentasi table, 
+.dokumentasi th,
+.dokumentasi td {
     border: 1px solid gray;
     padding: .5em;
     text-align: left;
     vertical-align: top
 }
-th {
+
+.dokumentasi th {
     background: lightgrey
 }
-dt {
+
+.dokumentasi dt {
     font-weight: bold
 }
-body > ul {
+
+.dokumentasi body > ul {
     padding-left: 0
 }
-ul {
+
+.dokumentasi ul {
     list-style: none inside;
     padding-left: 1.5em
 }
