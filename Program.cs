@@ -57,7 +57,8 @@ namespace dokumentasi
             // contents
             foreach(var type in reflection.Types)
             {
-                if (type.FullName.StartsWith("<PrivateImplementationDetails>"))
+                if (type.FullName.StartsWith("<PrivateImplementationDetails>") ||
+                    type.FullName.StartsWith("<CrtImplementationDetails>"))
                 {
                     continue;
                 }
