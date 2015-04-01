@@ -53,18 +53,17 @@
   <xsl:template match="Inheritance">
     <h2>Inheritance</h2>
 
-    <ul>
-      <xsl:for-each select="Class">
-        <xsl:text disable-output-escaping="yes">&lt;li&gt;</xsl:text>
-        <a href="{@Id}">
-          <xsl:value-of select="."/>
-        </a>
-      </xsl:for-each>
-      <!-- close all <li> tags -->
-      <xsl:for-each select="Class">
-        <xsl:text disable-output-escaping="yes">&lt;/li&gt;</xsl:text>
-      </xsl:for-each>
-    </ul>
+    <xsl:for-each select="Class">
+      <xsl:text disable-output-escaping="yes">&lt;ul&gt;&lt;li&gt;
+      </xsl:text>
+      <a href="{@Id}">
+        <xsl:value-of select="."/>
+      </a>
+    </xsl:for-each>
+    <!-- close all <li> tags -->
+    <xsl:for-each select="Class">
+      <xsl:text disable-output-escaping="yes">&lt;/li&gt;&lt;/ul&gt;</xsl:text>
+    </xsl:for-each>
 
     <dl>
       <dt>
