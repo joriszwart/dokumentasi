@@ -6,10 +6,17 @@ namespace dokumentasi
     class Documentation
     {
         XDocument document;
+        Dictionary<string, DocumentationMember> members;
 
         public Documentation(string filename)
         {
             this.document = XDocument.Load(filename);
+            this.members = new Dictionary<string, DocumentationMember>();
+            foreach (var xmember in document.Descendants("member"))
+            {
+                var member = new DocumentationMember(xmember);
+                members.Add(member.Id, member);
+            }
         }
 
         public string Assembly
@@ -21,28 +28,11 @@ namespace dokumentasi
             }
         }
 
-        public IEnumerable<DocumentationMember> Members
-        {
-            get
-            {
-                var members = document.Descendants("member");
-                foreach(var member in members)
-                {
-                    yield return new DocumentationMember(member);
-                }
-            }
-        }
-
         public DocumentationMember GetMemberById(string id)
         {
-            foreach(var member in Members)
-            {
-                if(member.Id == id)
-                {
-                    return member;
-                }
-            }
-            return null;
+            DocumentationMember member;
+            members.TryGetValue(id, out member);
+            return member;
         }
     }
 
