@@ -21,6 +21,8 @@ namespace dokumentasi
                 return;
             }
 
+            DateTime start = DateTime.Now;
+
             string assemblyfilename = args[0] + ".xml";
             if (!File.Exists(assemblyfilename))
             {
@@ -29,14 +31,6 @@ namespace dokumentasi
             }
 
             var documentation = new Documentation(assemblyfilename);
-            Console.WriteLine("assembly: " + documentation.Assembly);
-            foreach(var member in documentation.Members)
-            {
-                Console.WriteLine("  member: " + member.Name);
-            }
-
-            Console.WriteLine("---------------------------------");
-
             var assembly = Assembly.Load(args[0]);
             var reflection = new Reflection(assembly);
 
@@ -57,11 +51,12 @@ namespace dokumentasi
                 streamwriter.Close();
             }
 
-            Console.WriteLine("Writing toc.xml");
+            Console.WriteLine("Writing toc.html");
             var tocwriter = new HtmlWriter();
             tocwriter.BuildToC(reflection, documentation);
 
             // contents
+            int count = 1, total = reflection.Types.Count();
             foreach(var type in reflection.Types)
             {
                 if (type.FullName.StartsWith("<PrivateImplementationDetails>") ||
@@ -103,7 +98,7 @@ namespace dokumentasi
                 };
 
                 string filename = WebUtility.UrlEncode(type.FullName) + ".xml";
-                Console.WriteLine("Writing " + filename);
+                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
                 using (var streamwriter = new StreamWriter(filename))
                 {
                     var xmlwriter = new XmlWriter(streamwriter);
@@ -111,10 +106,15 @@ namespace dokumentasi
                 }
 
                 filename = WebUtility.UrlEncode(type.FullName) + ".html";
-                Console.WriteLine("Writing " + filename);
+                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
                 var topicwriter = new HtmlWriter();
                 topicwriter.BuildContents(type, member);
+
+                count++;
             }
+
+            TimeSpan duration = DateTime.Now.Subtract(start);
+            Console.WriteLine("Time: " + duration);
 
             if(Debugger.IsAttached)
             {
