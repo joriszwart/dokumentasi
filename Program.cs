@@ -21,7 +21,14 @@ namespace dokumentasi
                 return;
             }
 
-            var documentation = new Documentation(args[0] + ".xml");
+            string assemblyfilename = args[0] + ".xml";
+            if (!File.Exists(assemblyfilename))
+            {
+                Console.WriteLine("Assembly not found: " + assemblyfilename);
+                Environment.Exit(-1);
+            }
+
+            var documentation = new Documentation(assemblyfilename);
             Console.WriteLine("assembly: " + documentation.Assembly);
             foreach(var member in documentation.Members)
             {
