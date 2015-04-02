@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dokumentasi", "dokumentasi.csproj", "{4223EC50-8B5C-4D3C-973B-990F6F8A5CA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dokumentasi", "dokumentasi\dokumentasi.csproj", "{4223EC50-8B5C-4D3C-973B-990F6F8A5CA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
