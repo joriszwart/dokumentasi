@@ -23,15 +23,24 @@ namespace dokumentasi
 
             DateTime start = DateTime.Now;
 
-            string assemblyfilename = args[0] + ".xml";
-            if (!File.Exists(assemblyfilename))
+            // load documentation XML
+            string documentationfilename = args[0] + ".xml";
+            if (!File.Exists(documentationfilename))
             {
-                Console.WriteLine("Assembly not found: " + assemblyfilename);
+                Console.WriteLine("Documentation XML not found: " + documentationfilename);
                 Environment.Exit(-1);
             }
+            var documentation = new Documentation(documentationfilename);
 
-            var documentation = new Documentation(assemblyfilename);
-            var assembly = Assembly.Load(args[0]);
+            // load assembly reflection information
+            var assemblyfilename = args[0] + ".dll";
+            if (!File.Exists(documentationfilename))
+            {
+                Console.WriteLine("Assembly not found: " + documentationfilename);
+                Environment.Exit(-1);
+            }
+            var bytes = File.ReadAllBytes(assemblyfilename);
+            var assembly = Assembly.Load(bytes);
             var reflection = new Reflection(assembly);
 
             // style
