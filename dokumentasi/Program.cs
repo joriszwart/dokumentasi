@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 
 namespace dokumentasi
@@ -106,7 +105,7 @@ namespace dokumentasi
                     Remarks = member != null ? member.Remarks : "no remarks"
                 };
 
-                string filename = WebUtility.UrlEncode(type.FullName) + ".xml";
+                string filename = type.FullName + ".xml";
                 Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
                 using (var streamwriter = new StreamWriter(filename))
                 {
@@ -114,7 +113,7 @@ namespace dokumentasi
                     xmlwriter.BuildContents(typeinfo, member);
                 }
 
-                filename = WebUtility.UrlEncode(type.FullName) + ".html";
+                filename = type.FullName + ".html";
                 Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
                 var topicwriter = new HtmlWriter();
                 topicwriter.BuildContents(type, member);

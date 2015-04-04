@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Xml;
 using System.Xml.Xsl;
 
@@ -14,8 +13,8 @@ namespace dokumentasi
             using (var reader = XmlReader.Create(new StringReader(Properties.Resources.topic)))
             {
                 transform.Load(reader);
-                string xmlfilename = WebUtility.UrlEncode(type.FullName) + ".xml";
-                string htmlfilename = WebUtility.UrlEncode(type.FullName) + ".html";
+                string xmlfilename = type.FullName + ".xml";
+                string htmlfilename = type.FullName + ".html";
                 transform.Transform(xmlfilename, htmlfilename);
             }
         }
