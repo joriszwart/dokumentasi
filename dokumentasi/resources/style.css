@@ -10,6 +10,16 @@
     width: 100%
 }
 
+.dokumentasi th:first-child {
+    white-space: nowrap;
+    width: 10em
+}
+
+.dokumentasi th:nth-child(2) {
+    white-space: nowrap;
+    width: 20em
+}
+
 .dokumentasi table, 
 .dokumentasi th,
 .dokumentasi td {
@@ -24,14 +34,20 @@
 }
 
 .dokumentasi dt {
-    font-weight: bold
+    float: left;
+    font-weight: bold;
+    width: 100px
 }
 
-.dokumentasi body > ul {
+.dokumentasi > ul {
     padding-left: 0
 }
 
 .dokumentasi ul {
     list-style: none inside;
     padding-left: 1.5em
+}
+
+.dokumentasi code {
+    color: #1193c8
 }
