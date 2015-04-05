@@ -45,24 +45,6 @@ namespace dokumentasi
             // style
             File.WriteAllText("dokumentasi.css", Properties.Resources.style);
 
-            // table of contents
-            string tocfilename = "toc.xml";
-            Console.WriteLine("Writing " + tocfilename);
-            using (var streamwriter = new StreamWriter(tocfilename))
-            {
-                var types = (from type in reflection.Types
-                             orderby type.FullName
-                            select new TypeInfo { FullName = type.FullName, Id = type.FullName }).ToArray<TypeInfo>();
-
-                var xmlwriter = new XmlWriter(streamwriter);
-                xmlwriter.BuildToC(types);
-                streamwriter.Close();
-            }
-
-            Console.WriteLine("Writing toc.html");
-            var tocwriter = new HtmlWriter();
-            tocwriter.BuildToC(reflection, documentation);
-
             // contents
             int count = 1, total = reflection.Types.Count();
             foreach(var type in reflection.Types)
@@ -104,22 +86,41 @@ namespace dokumentasi
                     Fields = (from field in fields where !field.IsSpecialName select new Field { Name = field.Name, FullName = type.FullName + "." + field.Name, DocumentationMember = documentation.GetMemberById(type.FullName + ". " + field.Name) }).ToArray(),
                 };
 
-                string filename = type.FullName + ".xml";
-                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
-                using (var streamwriter = new StreamWriter(filename))
+                string xmlfilename = type.FullName + ".xml";
+                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, xmlfilename);
+                using (var streamwriter = new StreamWriter(xmlfilename))
                 {
                     var xmlwriter = new XmlWriter(streamwriter);
-                    xmlwriter.BuildContents(typeinfo, member);
+                    xmlwriter.BuildContent(typeinfo);
                 }
 
-                filename = type.FullName + ".html";
-                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, filename);
+                string htmlfilename = type.FullName + ".html";
+                Console.WriteLine("[{0}/{1}] Writing {2}", count, total, htmlfilename);
                 var topicwriter = new HtmlWriter();
-                topicwriter.BuildContents(type, member);
+                topicwriter.BuildContent(xmlfilename, htmlfilename);
 
                 count++;
             }
 
+            // table of contents
+            string tocfilename = "toc.xml";
+            Console.WriteLine("Writing " + tocfilename);
+            using (var streamwriter = new StreamWriter(tocfilename))
+            {
+                var types = (from type in reflection.Types
+                             orderby type.FullName
+                             select new TypeInfo { FullName = type.FullName, Id = type.FullName }).ToArray<TypeInfo>();
+
+                var xmlwriter = new XmlWriter(streamwriter);
+                xmlwriter.BuildToC(types);
+                streamwriter.Close();
+            }
+
+            Console.WriteLine("Writing toc.html");
+            var tocwriter = new HtmlWriter();
+            tocwriter.BuildToC();
+
+            // timing
             TimeSpan duration = DateTime.Now.Subtract(start);
             Console.WriteLine("Time: " + duration);
 

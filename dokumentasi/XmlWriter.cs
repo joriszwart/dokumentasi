@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace dokumentasi
@@ -19,7 +18,7 @@ namespace dokumentasi
             serializer.Serialize(writer, types);
         }
 
-        public void BuildContents(TypeInfo type, XElement member)
+        public void BuildContent(TypeInfo type)
         {
             var serializer = new XmlSerializer(type.GetType());
             serializer.Serialize(writer, type);
