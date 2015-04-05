@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Xsl;
 
 namespace dokumentasi
 {
     class HtmlWriter
     {
-        public void BuildContents(Type type, DocumentationMember member)
+        public void BuildContents(Type type, XElement member)
         {
             var transform = new XslCompiledTransform();
             using (var reader = XmlReader.Create(new StringReader(Properties.Resources.topic)))

@@ -6,16 +6,16 @@ namespace dokumentasi
     class Documentation
     {
         XDocument document;
-        Dictionary<string, DocumentationMember> members;
+        Dictionary<string, XElement> members;
 
         public Documentation(string filename)
         {
             this.document = XDocument.Load(filename);
-            this.members = new Dictionary<string, DocumentationMember>();
-            foreach (var xmember in document.Descendants("member"))
+            this.members = new Dictionary<string, XElement>();
+            foreach (var member in document.Descendants("member"))
             {
-                var member = new DocumentationMember(xmember);
-                members.Add(member.Id, member);
+                string id = member.Attribute("name").Value.Substring(2);
+                members.Add(id, member);
             }
         }
 
@@ -28,17 +28,17 @@ namespace dokumentasi
             }
         }
 
-        public DocumentationMember GetMemberById(string id)
+        public XElement GetMemberById(string id)
         {
-            DocumentationMember member;
+            XElement member;
             members.TryGetValue(id, out member);
             return member;
         }
     }
 
-    enum MemberType { Error, Event, Field, Method, Namespace, Property, Type };
+    public enum MemberType { Error, Event, Field, Method, Namespace, Property, Type };
 
-    class DocumentationMember
+    public class DocumentationMember
     {
         private XElement member;
 

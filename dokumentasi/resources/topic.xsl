@@ -33,10 +33,10 @@
     </h1>
   </xsl:template>
 
-  <xsl:template match="Summary">
+  <xsl:template match="DocumentMember/member">
     <h2>Summary</h2>
     <p>
-      <xsl:value-of select="."/>
+      <xsl:copy-of select="summary"/>
     </p>
   </xsl:template>
 

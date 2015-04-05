@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace dokumentasi
 {
@@ -9,7 +10,7 @@ namespace dokumentasi
         public string Name { get; set; }
         public string FullName { get; set; }
         public string Signature { get; set; }
-        public string Description { get; set; }
+        public XElement DocumentMember { get; set; }
     }
 
     class MethodInfoComparer: IComparer<MethodInfo>
