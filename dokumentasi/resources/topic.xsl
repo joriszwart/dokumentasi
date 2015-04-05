@@ -10,16 +10,20 @@
     <html>
       <head>
         <meta charset="utf-8"/>
-        <title><xsl:value-of select="TypeInfo/@Id"/></title>
+        <title>
+          <xsl:value-of select="TypeInfo/@Id"/>
+        </title>
         <link href="dokumentasi.css" rel="stylesheet"/>
       </head>
       <body class="dokumentasi">
         <article>
-        <xsl:apply-templates/>
+          <xsl:apply-templates/>
         </article>
       </body>
     </html>
   </xsl:template>
+
+  <!-- main templates -->
 
   <xsl:template match="FullName">
     <h1>
@@ -33,10 +37,12 @@
     </h1>
   </xsl:template>
 
-  <xsl:template match="DocumentMember/member">
+  <xsl:template match="DocumentMember/member/summary">
     <h2>Summary</h2>
     <p>
-      <xsl:copy-of select="summary"/>
+      <xsl:copy>
+        <xsl:apply-templates select="node() | @*"/>
+      </xsl:copy>
     </p>
   </xsl:template>
 
@@ -46,7 +52,7 @@
         <code>
           <xsl:value-of select="."/>
         </code>
-      </xsl:for-each>      
+      </xsl:for-each>
     </pre>
   </xsl:template>
 
@@ -70,7 +76,9 @@
         Namespace
       </dt>
       <dd>
-        <a href="{../@Namespace}"><xsl:value-of select="../@Namespace"/></a>
+        <a href="{../@Namespace}">
+          <xsl:value-of select="../@Namespace"/>
+        </a>
       </dd>
       <dt>
         Assembly
@@ -102,7 +110,9 @@
                 <xsl:value-of select="Properties"/>
               </td>
               <td>
-                <a href="#{Name}"><xsl:value-of select="Name"/></a>                  
+                <a href="#{Name}">
+                  <xsl:value-of select="Name"/>
+                </a>
               </td>
               <td>
                 <xsl:value-of select="Description"/>
@@ -112,6 +122,17 @@
         </tbody>
       </table>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="SeeAlso">
+    <h2>See also</h2>
+    <ul>
+      <xsl:for-each select=".">
+        <li>
+          <xsl:value-of select="."/>
+        </li>
+      </xsl:for-each>
+    </ul>
   </xsl:template>
 
   <xsl:template match="Exceptions">
@@ -142,10 +163,12 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="Remarks">
+  <xsl:template match="DocumentMember/member/remarks">
     <h2>Remarks</h2>
     <p>
-      <xsl:value-of select="."/>
+      <xsl:copy>
+        <xsl:apply-templates select="node() | @*"/>
+      </xsl:copy>
     </p>
   </xsl:template>
 
@@ -161,6 +184,85 @@
         </li>
       </xsl:for-each>
     </ul>
+  </xsl:template>
+
+  <!-- sub templates -->
+  <xsl:template match="c|code">
+    <code>
+      <xsl:value-of select="."/>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="example">
+    <pre>
+      <code>
+        <xsl:value-of select="."/>
+      </code>
+    </pre>
+  </xsl:template>
+
+  <xsl:template match="exception">
+    <code>
+      <a href="{@cref}">
+        <xsl:value-of select="."/>
+      </a>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="list">
+    <ul>
+      <xsl:for-each select="item">
+        <xsl:value-of select="."/>
+      </xsl:for-each>
+    </ul>
+  </xsl:template>
+
+  <xsl:template match="para">
+    <p>
+      <xsl:value-of select="."/>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="param">
+    <code>
+      <xsl:value-of select="."/>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="paramref">
+    <code>
+      <a href="{@name}">
+        <xsl:value-of select="."/>
+      </a>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="permission">
+    <code>
+      <a href="{@cref}">
+        <xsl:value-of select="."/>
+      </a>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="returns">
+    <code>
+      <xsl:value-of select="."/>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="see">
+    <code>
+      <a href="{@cref}">
+        <xsl:value-of select="."/>
+      </a>
+    </code>
+  </xsl:template>
+
+  <xsl:template match="value">
+    <code>
+      <xsl:value-of select="."/>
+    </code>
   </xsl:template>
 
 </xsl:stylesheet>
